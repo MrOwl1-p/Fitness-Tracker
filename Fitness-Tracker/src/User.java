@@ -1,3 +1,6 @@
+
+import java.util.Scanner;
+
 public class User {
     private String name;
     private int age;
@@ -59,6 +62,30 @@ public class User {
 
     public void setGoal(Goal goal) {
         this.goal = goal;
+    }
+
+    public static User createUserFromInput() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter name: ");
+        String name = scanner.nextLine();
+
+        System.out.print("Enter age: ");
+        int age = scanner.nextInt();
+
+        System.out.print("Enter weight (kg): ");
+        double weight = scanner.nextDouble();
+
+        System.out.print("Enter height (m): ");
+        double height = scanner.nextDouble();
+
+        System.out.print("Enter goal type: ");
+        String goalType = scanner.next();
+        Goal goal = Goal.valueOf(goalType.toUpperCase());
+
+        User user = new User(name, age, weight, height, goal);
+        scanner.close();
+        return user;
     }
 
 }

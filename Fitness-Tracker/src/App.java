@@ -2,11 +2,8 @@ public class App {
     public static void main(String[] args) {
         System.out.println("Hello, World!");
 
-        // Create a goal
-        Goal weightLossGoal = new Goal("Weight Loss", 10);
-
         // Create a user
-        User user = new User("John Doe", 25, 75, 1.75, weightLossGoal);
+        User user = User.createUserFromInput();
 
         // Log workouts
         Workout workout1 = new Workout("Running", 30);

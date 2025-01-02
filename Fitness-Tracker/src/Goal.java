@@ -1,12 +1,14 @@
+import java.util.Scanner;
+
 public class Goal {
     private String goalType;
     private int targetValue;
     private int currentValue;
 
-    public Goal(String goalType, int targetValue) {
+    public Goal(String goalType, int targetValue, int currentValue) {
         this.goalType = goalType;
         this.targetValue = targetValue;
-        this.currentValue = 0;
+        this.currentValue = currentValue;
     }
 
     public void updateProgress(int progress) {
@@ -42,27 +44,25 @@ public class Goal {
     }
 
     public static Goal valueOf(String goalType) {
+        Scanner scanner = new Scanner(System.in);
 
-        // Implement the logic to convert a string to a Goal object
+        System.out.print("Enter target value: ");
+        int targetValue = scanner.nextInt();
 
-        // For example, you can use a switch statement or if-else conditions
+        System.out.print("Enter current value: ");
+        int currentValue = scanner.nextInt();
+        scanner.close();
 
-        switch (goalType.toUpperCase()) {
-
-            case "WEIGHT_LOSS":
-
-                return new Goal("WEIGHT_LOSS", 0); 
-
-            case "MUSCLE_GAIN":
-
-                return new Goal("MUSCLE_GAIN", 0);
-
-            // Add more cases as needed
-
+        switch (goalType.toUpperCase()) { // switch case for goal type
+            case "1":
+                System.out.println("Weight Loss");
+                return new Goal("1", targetValue, currentValue);
+            case "2":
+                System.out.println("Muscle Gain");
+                return new Goal("2", targetValue, currentValue);
             default:
-
-                throw new IllegalArgumentException("Unknown goal type: " + goalType);
-
+                System.out.println("Invalid goal type. Please enter a valid goal type.");
+                return null;
         }
 
     }

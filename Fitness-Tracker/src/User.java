@@ -76,17 +76,17 @@ public class User {
         System.out.print("Enter weight (kg): ");
         double weight = scanner.nextDouble();
 
-        System.out.print("Enter height (m): ");
+        System.out.print("Enter height (cm): ");
         double height = scanner.nextDouble();
 
-        System.out.print("Enter goal type: " + '\n' + "" + // enter goal type
+        System.out.print("Goal type: " + '\n' + "" + // enter goal type
                 "1: Weight Loss, 2: Muscle Gain" + '\n' +
                 "Enter goal type: ");
-        String goalType = scanner.next();
-        Goal goal = Goal.valueOf(goalType.toUpperCase());
+        int goalType = scanner.nextInt();
+        Goal goal = Goal.userGoal(goalType, weight);
 
         User user = new User(name, age, weight, height, goal); // create user
-        scanner.close();
+        // scanner.close();
         return user;
     }
 

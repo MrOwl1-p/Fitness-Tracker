@@ -17,33 +17,15 @@ public class Diet {
     }
 
     public void setMealType(String mealType) {
-
-        // aku tak tau tapi aku guna try tu untuk tutup scanner 
-        try (Scanner scanner = new Scanner(System.in)) { 
-        String[] allowedMealTypes = {"Breakfast", "Lunch", "Dinner"}; //aaray untuk mealtype 
-
-        boolean validInput = false;
-        do {
-            System.out.print("Enter meal type (Breakfast, Lunch, Dinner): ");
-            String input = scanner.nextLine();
-                                                                              
-            for (String allowedType : allowedMealTypes) {   //for loop ni untuk pastikan user pilih antara 3 tu je mealtype 
-                if (input.equalsIgnoreCase(allowedType)) {
-                    this.mealType = input;
-                    validInput = true;
-                    break;
-                }
-            }
-
-            if (!validInput) {
-                System.out.println("Invalid meal type. Please enter a valid option.");
-            }
-
-        } while (!validInput);
-
-        System.out.print("Enter calories for " + mealType + ": ");
-        this.calories = scanner.nextDouble(); 
-    }
+       String[] allowedMealTypes = {"Breakfast", "Lunch", "Dinner"};
+       for (String allowedType : allowedMealTypes) {
+           if (mealType.equalsIgnoreCase(allowedType)) {
+               this.mealType = mealType;
+               return; // Exit the method once a valid type is set
+           }
+       }
+       throw new IllegalArgumentException("Invalid meal type. Please use Breakfast, Lunch, or Dinner.");
+    
     }
 
     public double getCalories() {
@@ -51,6 +33,9 @@ public class Diet {
     }
 
     public void setCalories(double calories) {
+        if (calories <= 0) {
+            throw new IllegalArgumentException("Calories must be a positive number.");
+        }
         this.calories = calories;
     }
 
@@ -78,5 +63,26 @@ public class Diet {
 
     public void logMeal() {
         System.out.println("Meal logged: " + mealType + " with " + calories + " calories.");
+        if (nutritionDetails != null) {
+            System.out.println("Nutrition Details:");
+            for (String detail : nutritionDetails) {
+                System.out.println(" - " + detail);
+            }
+        }
+    }
+
+    public static Diet createDietFromUserInput() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter meal type (Breakfast, Lunch, Dinner): ");
+        String mealType = scanner.nextLine();
+
+        System.out.print("Enter calories for " + mealType + ": ");
+        double calories = scanner.nextDouble();
+
+        scanner.nextLine(); // Consume newline
+        System.out.print("Enter nutrition details (comma-separated): ");
+        String[] nutritionDetails = scanner.nextLine().split(",");
+        scanner.close();
+        return new Diet(mealType, calories, nutritionDetails);
     }
 }

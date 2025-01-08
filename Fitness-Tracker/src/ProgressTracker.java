@@ -1,13 +1,13 @@
 
 public class ProgressTracker {
-    private float dietProgress;
+    private double dietProgress;
     private String goalStatus;
 
-    public float getDietProgress() {
+    public double getDietProgress() {
         return this.dietProgress;
     }
 
-    public void setDietProgress(float dietProgress) {
+    public void setDietProgress(double dietProgress) {
         this.dietProgress = dietProgress;
     }
 
@@ -17,6 +17,20 @@ public class ProgressTracker {
 
     public void setGoalStatus(String goalStatus) {
         this.goalStatus = goalStatus;
+    }
+
+    public void updateProgress(Goal goal) {
+        this.dietProgress = goal.calculateDietPercentage();
+        if (goal.checkGoalCompletion()) {
+            this.goalStatus = "Goal Completed!";
+        } else {
+            this.goalStatus = "In Progress";
+        }
+    }
+
+    public void displayProgress() {
+        System.out.println("Progress: " + dietProgress + "%");
+        System.out.println("Status: " + goalStatus);
     }
 
 }

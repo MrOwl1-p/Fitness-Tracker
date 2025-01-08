@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class App {
     public static void main(String[] args) {
         System.out.println("Hello, World!");
@@ -5,25 +7,37 @@ public class App {
         // Buat a new user
         User user = User.createUserFromInput();
 
-        // // Log workouts
-        // Workout workout1 = new Workout("Running", 30);
-        // workout1.logWorkout();
+        // Track Progress
+        ProgressTracker tracker = new ProgressTracker();
+        tracker.updateProgress(user.getGoal());
+        tracker.displayProgress();
 
-        // // Log diet
-        // String[] nutritionDetails = { "Protein: 10g", "Carbs: 20g" };
-        // Diet breakfast = new Diet("Breakfast", 300, nutritionDetails);
-        // breakfast.logMeal();
-
-        // // Progress tracking
-        // ProgressTracker tracker = new ProgressTracker();
-        // tracker.generateProgressReport();
-
-        // // Display BMI
-        // System.out.println("User BMI: " + user.calculateBMI());
-
-        System.out.println("User details: " + user.getName() + ", " + user.getAge() + " years old." + " Weight: "
+        // display goal
+        System.out.println('\n' + "User details: " + user.getName() + ", " +
+                user.getAge() + " years old." + " Weight: "
                 + user.getWeight() + " kg, Height: " + user.getHeight() + " cm.");
-                
-        System.out.println("User's goal: " + user.getGoal());
+
+        System.out.println("User's goal: " + user.getGoal() + '\n');
+
+        // Update Goal
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Do you want to update your goal? (yes/no)");
+        String userResponse = scanner.nextLine();
+
+        if (userResponse == ("yes")) {
+            System.out.print("Enter new goal type: ");
+            int newGoalType = scanner.nextInt();
+
+            Goal newGoal = Goal.userGoal(newGoalType, user.getGoal().getCurrentValue());
+            if (newGoal != null) {
+                user.updateGoal(newGoal);
+                System.out.println("Updated goal: " + user.getGoal());
+                tracker.updateProgress(user.getGoal());
+                tracker.displayProgress();
+            }
+        }
+
+        scanner.close();
+
     }
 }

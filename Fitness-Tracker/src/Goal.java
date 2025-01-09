@@ -67,7 +67,7 @@ public class Goal {
 
         String goalName = GOAL_TYPES[goalType - 1];
         System.out.println(goalName);
-        
+
         return new Goal(goalType, targetValue, currentWeight);
 
     }

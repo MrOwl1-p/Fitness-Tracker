@@ -67,5 +67,28 @@ public class App {
 
         System.out.println("Congratulations! You have completed your goal.");
         scanner.close();
+
+                        //test
+    System.out.println("\nLog your diet:");
+    scanner.nextLine(); 
+    System.out.print("Enter meal type (Breakfast, Lunch, Dinner): ");
+    String mealType = scanner.nextLine();
+                       
+    System.out.print("Enter calories: ");
+    double calories = scanner.nextDouble();
+    scanner.nextLine(); 
+                       
+    System.out.print("Enter nutrition details (comma-separated): ");
+    String[] nutritionDetails = scanner.nextLine().split(",");
+                       
+    Diet diet = new Diet(mealType, calories, nutritionDetails);
+    diet.logMeal();
+                       
+    System.out.println("\nMeal Details:");
+    System.out.println("Meal Type: " + diet.getMealType());
+    System.out.println("Calories: " + diet.getCalories());
+    System.out.println("Nutrition Details: " + String.join(", ", diet.getNutritionDetails()));
+                       
+    System.out.println("\nTotal Calories (adjusted for meal type): " + diet.calculateTotalCalories());
     }
 }

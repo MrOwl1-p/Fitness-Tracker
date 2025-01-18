@@ -25,9 +25,11 @@ public class Workout {
 
     // Method to get METs (Metabolic Equivalent of Task) for various exercises
     private double getMETs(String exerciseType) {
+
         switch (exerciseType.toLowerCase()) {
             case "jogging":
                 return 8.0;
+
             case "cycling":
                 return 5.0;
             case "gym workout":
@@ -54,11 +56,11 @@ public class Workout {
             case 1:
                 return 0.8; // Reduce METs by 20%
             case 2:
-                return 1.0; // Reduce METs by 20%    
+                return 1.0; // Reduce METs by 20%
             case 3:
                 return 1.2; // Increase METs by 20%
         }
-                return choice;
+        return choice;
     }
 
     // Getter methods
@@ -76,7 +78,8 @@ public class Workout {
 
     // Method to log the workout details
     public void logWorkout() {
-        System.out.printf("\nWorkout logged: %s for %.2f mins. Calories burned: %.2f\n", exerciseType, duration, caloriesBurned);
+        System.out.printf("\nWorkout logged: %s for %.2f mins. Calories burned: %.2f\n", exerciseType, duration,
+                caloriesBurned);
     }
 
     // Overriding `toString` to represent Workout object details

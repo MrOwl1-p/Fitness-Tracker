@@ -4,7 +4,7 @@ public class Goal {
     private int goalType;
     private double targetValue;
     private double currentValue;
-    private static final String[] GOAL_TYPES = { "Weight Loss", "Muscle Gain" }; // Array for goal types
+    private static final String[] GOAL_TYPES = { "Weight Loss", "Muscle Gain" }; // Array untuk goal types
 
     public Goal(int goalType, double targetValue, double currentValue) {
         this.goalType = goalType;
@@ -14,13 +14,15 @@ public class Goal {
 
     public void updateProgress(int progress) {
         this.currentValue += progress;
-        if (this.currentValue > targetValue) {
-            this.currentValue = targetValue; // Ensure current value does not exceed target
+        if (goalType == 1 && this.currentValue < targetValue) {
+            this.currentValue = targetValue; // For weight loss, currentValue cannot go below targetValue
+        } else if (goalType == 2 && this.currentValue > targetValue) {
+            this.currentValue = targetValue; // For weight gain, currentValue cannot exceed targetValue
         }
     }
 
     public boolean checkGoalCompletion() {
-        return currentValue >= targetValue;
+        return (goalType == 1 && currentValue == targetValue) || (goalType == 2 && currentValue == targetValue);
     }
 
     public int getGoalType() {
@@ -49,7 +51,11 @@ public class Goal {
     }
 
     public double calculateDietPercentage() {
-        return (currentValue / targetValue) * 100;
+        if (goalType == 1) { // Weight Loss
+            return 100 - (((currentValue - targetValue) / (targetValue)) * 100);
+        } else { // Weight Gain
+            return ((currentValue / targetValue) * 100);
+        }
     }
 
     public static Goal userGoal(int goalType, double currentWeight) {
@@ -65,6 +71,17 @@ public class Goal {
 
         // scanner.close();
 
+        // Validate target weight
+        // if (goalType == 1 && targetValue > currentWeight) {
+        // System.out.println("Invalid target weight. Target weight must be less than
+        // current weight.");
+        // return null;
+        // } else if (goalType == 2 && targetValue < currentWeight) {
+        // System.out.println("Invalid target weight. Target weight must be more than
+        // current weight.");
+        // return null;
+        // }
+
         String goalName = GOAL_TYPES[goalType - 1];
         System.out.println(goalName);
 
@@ -74,9 +91,7 @@ public class Goal {
 
     @Override
     public String toString() {
-        String goalTypeName = (goalType >= 1 && goalType <= GOAL_TYPES.length)
-                ? GOAL_TYPES[goalType - 1]
-                : "Unknown";
+        String goalTypeName = (goalType >= 1 && goalType <= GOAL_TYPES.length) ? GOAL_TYPES[goalType - 1] : "Unknown";
         return "Goal Type: " + goalTypeName + ", Target: " + targetValue + ", Current: " + currentValue;
     }
 

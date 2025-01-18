@@ -2,32 +2,47 @@ import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) {
+
+        User[] users = {
+                new User("Amirul", 22, 60.0, 160),
+                new User("Sheikh", 22, 85.0, 180),
+                new User("Nurzuk", 22, 70.0, 155)
+        };
         Scanner scanner = new Scanner(System.in);
 
-        // Create a DietTrackerUser
-        System.out.print("Enter your name: ");
-        String name = scanner.nextLine();
+        // Display users
+        for (int i = 0; i < users.length; i++) {
+            System.out.println((i + 1) + ": " + users[i]);
+        }
+        System.out.println('\n' + "Select a user:");
 
-        System.out.print("Enter your age: ");
-        int age = scanner.nextInt();
+        int selectedUserIndex = scanner.nextInt() - 1;
+        if (selectedUserIndex < 0 || selectedUserIndex >= users.length) {
+            System.out.println("Invalid selection.");
+            return;
+        }
 
-        System.out.print("Enter your weight (kg): ");
-        double weight = scanner.nextDouble();
-
-        System.out.print("Enter your height (m): ");
-        double height = scanner.nextDouble();
-        scanner.nextLine(); // Consume newline
-
-        System.out.print("Enter your diet plan: ");
-        String dietPlan = scanner.nextLine();
-
-        DietTrackerUser user = new DietTrackerUser(name, age, weight, height, dietPlan);
-
-        // Display user info
+        // Selected user
+        User user = users[selectedUserIndex];
         System.out.println("\nWelcome, " + user);
-        System.out.println("Your current diet plan is: " + user.getDietPlan());
 
-        // Set up goals
+        // Create a new user
+        // System.out.print("Enter your name: ");
+        // String name = scanner.nextLine();
+
+        // System.out.print("Enter your age: ");
+        // int age = scanner.nextInt();
+
+        // System.out.print("Enter your weight (kg): ");
+        // double weight = scanner.nextDouble();
+
+        // System.out.print("Enter your height (cm): ");
+        // double height = scanner.nextDouble();
+        // scanner.nextLine();
+
+        // User user = new User(name, age, weight, height);
+
+        // Set up users goals
         System.out.println("\nEnter goal type: 1: Weight Loss, 2: Muscle Gain");
         int goalType = scanner.nextInt();
 
@@ -39,7 +54,7 @@ public class App {
         // Track progress for each goal
         ProgressTracker tracker = new ProgressTracker();
 
-        for (Goal xGoal : user.getGoal()) { // Iterate through goals
+        for (Goal xGoal : user.getGoal()) {
             do {
                 // Display progress for the current goal
                 tracker.updateProgress(xGoal);
@@ -56,7 +71,7 @@ public class App {
             } while (!xGoal.checkGoalCompletion()); // Repeat until the goal is complete
         }
 
-        // Display final progress
+        // Tunjuk final progress
         System.out.println("\nCongratulations! All goals are completed.");
         for (Goal g : user.getGoal()) {
             tracker.updateProgress(g);

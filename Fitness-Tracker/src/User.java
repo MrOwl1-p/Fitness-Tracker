@@ -14,7 +14,7 @@ public class User {
         this.weight = weight;
         this.height = height;
         this.goal = new ArrayList<>();
-        
+
     }
 
     public ArrayList<Goal> getGoal() {
@@ -100,7 +100,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{name=' " + name + " ', age= " + age + ", weight= " + weight + ", height= " + height + "}";
+        return name + " (Age: " + age + ", Weight: " + weight + "kg, Height: " + height + "cm)";
     }
 
 }

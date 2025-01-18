@@ -4,13 +4,13 @@ public class Workout {
     private String exerciseType;
     private double duration;
     private double caloriesBurned;
+    private double getWeight;
 
     public Workout(String exerciseType, double duration) {
         this.exerciseType = exerciseType;
         this.duration = duration;
           calculateCaloriesBurned();
     }
-
 
 
     public void logWorkout() {
@@ -40,7 +40,7 @@ public class Workout {
             this.exerciseType = allowedExercises[0]; 
         }
     }
-    }
+    }//test
 
     public double getDuration() {
         return this.duration;
@@ -70,10 +70,9 @@ public class Workout {
 
         // Calculation untuk calories
         this.caloriesBurned = (mets * intensityModifier * 3.5 * getWeight()) / 200 * duration;
-    }
-
-
-    private double getMETs(String exerciseType) {
+            }
+        
+            private double getMETs(String exerciseType) {
         switch (exerciseType.toLowerCase()) {
             case "jogging":
                 return 8; 
@@ -110,11 +109,8 @@ public class Workout {
         } else {
             return 1; 
         }
+        
     }
     }
 
-    private double getWeight() {
-        // ni berat defult nanti kau boleh tukar seh or buang pon tak pe 
-        return 70;
-    }
 }

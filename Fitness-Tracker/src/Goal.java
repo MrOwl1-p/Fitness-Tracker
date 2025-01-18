@@ -13,7 +13,7 @@ public class Goal {
     }
 
     public void updateProgress(int progress) {
-        this.currentValue += progress;
+        this.currentValue = progress;
         if (goalType == 1 && this.currentValue < targetValue) {
             this.currentValue = targetValue; // For weight loss, currentValue cannot go below targetValue
         } else if (goalType == 2 && this.currentValue > targetValue) {
@@ -69,8 +69,6 @@ public class Goal {
         System.out.print("Enter target Weight: ");
         double targetValue = scanner.nextDouble();
 
-        String goalName = GOAL_TYPES[goalType - 1];
-        System.out.println(goalName);
 
         return new Goal(goalType, targetValue, currentWeight);
 
@@ -82,8 +80,7 @@ public class Goal {
 
     @Override
     public String toString() {
-        String goalTypeName = (goalType >= 1 && goalType <= GOAL_TYPES.length) ? GOAL_TYPES[goalType - 1] : "Unknown";
-        return "Goal Type: " + goalTypeName + ", Target: " + targetValue + ", Current: " + currentValue;
+        return "Goal Type: " + getGoalTypeName() + ", Target: " + targetValue + ", Current: " + currentValue;
     }
-
+    // test
 }

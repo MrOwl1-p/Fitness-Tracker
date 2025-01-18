@@ -9,7 +9,7 @@ public class App {
                 new User("Sheikh", 22, 95.0, 180),
                 new User("Nurzul", 22, 70.0, 165),
                 new User("Imran", 22, 80.0, 185),
-                new User("Amin", 22, 550.0, 175)
+                new User("Amin", 22, 55.0, 175)
         };
         Scanner scanner = new Scanner(System.in);
 
@@ -23,6 +23,7 @@ public class App {
 
         if (selectedUser < 0 || selectedUser >= users.length) {
             System.out.println("Invalid selection.");
+            scanner.close();
             return;
         }
 
@@ -30,28 +31,41 @@ public class App {
         User user = users[selectedUser];
         System.out.println("\nWelcome, " + user.getName());
 
-        // Create a workout for the selected user
-        System.out.print("\nEnter workout duration in minutes: ");
-        double duration = scanner.nextDouble();
-        scanner.nextLine(); // Consume newline
+        // Set up user's goals
+        System.out.println("\nEnter goal type: 1: Weight Loss, 2: Muscle Gain");
+        int goalType = scanner.nextInt();
 
-        System.out.println("\nSelect Exercise Type:");
-        System.out.println("1. Jogging\n2. Gym Workout\n3. Cycling\n4. Walking");
-        System.out.print("Enter your choice (1-4): ");
-        int exerciseChoice = scanner.nextInt();
-        scanner.nextLine(); // Consume newline
-
-        String[] exerciseTypes = {"Jogging", "Gym Workout", "Cycling", "Walking"};
-        if (exerciseChoice < 1 || exerciseChoice > exerciseTypes.length) {
-            System.out.println("Invalid choice. Defaulting to Jogging.");
-            exerciseChoice = 1; // Default to Jogging
+        Goal goal = Goal.userGoal(goalType, user.calculateBMI());
+        if (goal == null) {
+            System.out.println("Invalid goal type.");
+            scanner.close();
+            return;
         }
-        String exerciseType = exerciseTypes[exerciseChoice - 1];
+        user.addGoal(goal);
 
-        // Create a Workout object
-        Workout workout = new Workout(exerciseType, duration, user.getWeight());
-        workout.logWorkout(); // Log the workout details
+        // Display Goal Type and Target initially
+        System.out.println("\nCurrent Goal:");
+        System.out.println("Goal Type: " + goal.getGoalTypeName());
+        System.out.println("Target: " + goal.getTargetValue());
 
+        do {
+            // Prompt for updated current value
+            System.out.print("\nEnter updated current weight: ");
+            double newCurrent = scanner.nextDouble();
+            goal.setCurrentValue(newCurrent);
+
+            // Update progress and display updated details
+            ProgressTracker tracker = new ProgressTracker();
+            tracker.updateProgress(goal);
+
+            System.out.println("\nUpdated Goal Details:");
+            System.out.println("Current: " + goal.getCurrentValue());
+            System.out.println("Progress: " + tracker.getDietProgress() + "%");
+            System.out.println("Status: " + tracker.getGoalStatus());
+
+        } while (!goal.checkGoalCompletion());
+
+        System.out.println("Congratulations! You have completed your goal.");
         scanner.close();
     }
 }

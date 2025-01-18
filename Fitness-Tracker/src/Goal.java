@@ -69,24 +69,15 @@ public class Goal {
         System.out.print("Enter target Weight: ");
         double targetValue = scanner.nextDouble();
 
-        // scanner.close();
-
-        // Validate target weight
-        // if (goalType == 1 && targetValue > currentWeight) {
-        // System.out.println("Invalid target weight. Target weight must be less than
-        // current weight.");
-        // return null;
-        // } else if (goalType == 2 && targetValue < currentWeight) {
-        // System.out.println("Invalid target weight. Target weight must be more than
-        // current weight.");
-        // return null;
-        // }
-
         String goalName = GOAL_TYPES[goalType - 1];
         System.out.println(goalName);
 
         return new Goal(goalType, targetValue, currentWeight);
 
+    }
+
+    public String getGoalTypeName() {
+        return (goalType >= 1 && goalType <= GOAL_TYPES.length) ? GOAL_TYPES[goalType - 1] : "Unknown";
     }
 
     @Override

@@ -3,80 +3,54 @@ import java.util.Scanner;
 public class App {
     public static void main(String[] args) {
 
+        // Array of predefined users (Example of Array)
         User[] users = {
-                new User("Amirul", 22, 60.0, 160),
-                new User("Sheikh", 22, 85.0, 180),
-                new User("Nurzuk", 22, 70.0, 155)
+                new User("Amirul", 22, 60.0, 170),
+                new User("Sheikh", 22, 95.0, 180),
+                new User("Nurzul", 22, 70.0, 165),
+                new User("Imran", 22, 80.0, 185),
+                new User("Amin", 22, 550.0, 175)
         };
         Scanner scanner = new Scanner(System.in);
 
-        // Display users
+        // Display available users
+        System.out.println("Select User Profile:");
         for (int i = 0; i < users.length; i++) {
             System.out.println((i + 1) + ": " + users[i]);
         }
-        System.out.println('\n' + "Select a user:");
+        System.out.print("Enter your choice (1-" + users.length + "): ");
+        int selectedUser = scanner.nextInt() - 1;
 
-        int selectedUserIndex = scanner.nextInt() - 1;
-        if (selectedUserIndex < 0 || selectedUserIndex >= users.length) {
+        if (selectedUser < 0 || selectedUser >= users.length) {
             System.out.println("Invalid selection.");
             return;
         }
 
         // Selected user
-        User user = users[selectedUserIndex];
-        System.out.println("\nWelcome, " + user);
+        User user = users[selectedUser];
+        System.out.println("\nWelcome, " + user.getName());
 
-        // Create a new user
-        // System.out.print("Enter your name: ");
-        // String name = scanner.nextLine();
+        // Create a workout for the selected user
+        System.out.print("\nEnter workout duration in minutes: ");
+        double duration = scanner.nextDouble();
+        scanner.nextLine(); // Consume newline
 
-        // System.out.print("Enter your age: ");
-        // int age = scanner.nextInt();
+        System.out.println("\nSelect Exercise Type:");
+        System.out.println("1. Jogging\n2. Gym Workout\n3. Cycling\n4. Walking");
+        System.out.print("Enter your choice (1-4): ");
+        int exerciseChoice = scanner.nextInt();
+        scanner.nextLine(); // Consume newline
 
-        // System.out.print("Enter your weight (kg): ");
-        // double weight = scanner.nextDouble();
-
-        // System.out.print("Enter your height (cm): ");
-        // double height = scanner.nextDouble();
-        // scanner.nextLine();
-
-        // User user = new User(name, age, weight, height);
-
-        // Set up users goals
-        System.out.println("\nEnter goal type: 1: Weight Loss, 2: Muscle Gain");
-        int goalType = scanner.nextInt();
-
-        Goal goal = Goal.userGoal(goalType, user.calculateBMI());
-        if (goal != null) {
-            user.addGoal(goal);
+        String[] exerciseTypes = {"Jogging", "Gym Workout", "Cycling", "Walking"};
+        if (exerciseChoice < 1 || exerciseChoice > exerciseTypes.length) {
+            System.out.println("Invalid choice. Defaulting to Jogging.");
+            exerciseChoice = 1; // Default to Jogging
         }
+        String exerciseType = exerciseTypes[exerciseChoice - 1];
 
-        // Track progress for each goal
-        ProgressTracker tracker = new ProgressTracker();
-
-        for (Goal xGoal : user.getGoal()) {
-            do {
-                // Display progress for the current goal
-                tracker.updateProgress(xGoal);
-                System.out.println("\nCurrent Goal Progress:");
-                System.out.println(xGoal.toString());
-                tracker.displayProgress();
-
-                // Prompt for new weight to update the goal
-                System.out.print("Enter new weight to update goal: ");
-                double newWeight = scanner.nextDouble();
-                user.updateGoal(newWeight);
-
-                System.out.println("\nUpdated User: " + user);
-            } while (!xGoal.checkGoalCompletion()); // Repeat until the goal is complete
-        }
-
-        // Tunjuk final progress
-        System.out.println("\nCongratulations! All goals are completed.");
-        for (Goal g : user.getGoal()) {
-            tracker.updateProgress(g);
-            tracker.displayProgress();
-        }
+        // Create a Workout object
+        Workout workout = new Workout(exerciseType, duration, user.getWeight());
+        workout.logWorkout(); // Log the workout details
 
         scanner.close();
     }

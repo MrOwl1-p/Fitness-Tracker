@@ -2,11 +2,10 @@ import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) {
-
         User[] users = {
                 new User("Amirul", 22, 60.0, 160),
                 new User("Sheikh", 22, 85.0, 180),
-                new User("Nurzuk", 22, 70.0, 155)
+                new User("Nurzul", 22, 70.0, 155)
         };
         Scanner scanner = new Scanner(System.in);
 
@@ -16,33 +15,18 @@ public class App {
         }
         System.out.println('\n' + "Select a user:");
 
-        int selectedUserIndex = scanner.nextInt() - 1;
-        if (selectedUserIndex < 0 || selectedUserIndex >= users.length) {
+        int userChoice = scanner.nextInt() - 1;
+        if (userChoice < 0 || userChoice >= users.length) {
             System.out.println("Invalid selection.");
+            scanner.close();
             return;
         }
 
         // Selected user
-        User user = users[selectedUserIndex];
+        User user = users[userChoice];
         System.out.println("\nWelcome, " + user);
 
-        // Create a new user
-        // System.out.print("Enter your name: ");
-        // String name = scanner.nextLine();
-
-        // System.out.print("Enter your age: ");
-        // int age = scanner.nextInt();
-
-        // System.out.print("Enter your weight (kg): ");
-        // double weight = scanner.nextDouble();
-
-        // System.out.print("Enter your height (cm): ");
-        // double height = scanner.nextDouble();
-        // scanner.nextLine();
-
-        // User user = new User(name, age, weight, height);
-
-        // Set up users goals
+        // Set up user's goals
         System.out.println("\nEnter goal type: 1: Weight Loss, 2: Muscle Gain");
         int goalType = scanner.nextInt();
 
@@ -51,32 +35,29 @@ public class App {
             user.addGoal(goal);
         }
 
-        // Track progress for each goal
-        ProgressTracker tracker = new ProgressTracker();
+        // Display only Goal Type and Target initially
+        System.out.println("\nCurrent Goal:");
+        System.out.println("Goal Type: " + goal.getGoalTypeName());
+        System.out.println("Target: " + goal.getTargetValue());
 
-        for (Goal xGoal : user.getGoal()) {
-            do {
-                // Display progress for the current goal
-                tracker.updateProgress(xGoal);
-                System.out.println("\nCurrent Goal Progress:");
-                System.out.println(xGoal.toString());
-                tracker.displayProgress();
+        do {
+            // Prompt for updated current value
+            System.out.print("\nEnter updated current weight: ");
+            double newCurrent = scanner.nextDouble();
+            goal.setCurrentValue(newCurrent);
 
-                // Prompt for new weight to update the goal
-                System.out.print("Enter new weight to update goal: ");
-                double newWeight = scanner.nextDouble();
-                user.updateGoal(newWeight);
+            // Update progress and display updated details
+            ProgressTracker tracker = new ProgressTracker();
+            tracker.updateProgress(goal);
 
-                System.out.println("\nUpdated User: " + user);
-            } while (!xGoal.checkGoalCompletion()); // Repeat until the goal is complete
-        }
+            System.out.println("\nUpdated Goal Details:");
+            System.out.println("Current: " + goal.getCurrentValue());
+            System.out.println("Progress: " + tracker.getDietProgress() + "%");
+            System.out.println("Status: " + tracker.getGoalStatus());
 
-        // Tunjuk final progress
-        System.out.println("\nCongratulations! All goals are completed.");
-        for (Goal g : user.getGoal()) {
-            tracker.updateProgress(g);
-            tracker.displayProgress();
-        }
+        } while (goal.checkGoalCompletion() == false);
+
+        System.out.println("Congratulations! You have completed your goal.");
 
         scanner.close();
     }

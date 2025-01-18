@@ -6,7 +6,7 @@ public class App {
         User[] users = {
                 new User("Amirul", 22, 60.0, 160),
                 new User("Sheikh", 22, 85.0, 180),
-                new User("Nurzuk", 22, 70.0, 155)
+                new User("Nurzul", 22, 70.0, 155)
         };
         Scanner scanner = new Scanner(System.in);
 

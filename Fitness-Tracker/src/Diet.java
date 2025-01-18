@@ -76,6 +76,9 @@ public class Diet {
         }
     }
 
+
+    ///nuzul punya
+
     public void logMeal() {
         System.out.println("Meal logged: " + mealType + " with " + calories + " calories.");
     }

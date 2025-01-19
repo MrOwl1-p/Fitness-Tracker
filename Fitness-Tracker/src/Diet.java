@@ -64,20 +64,19 @@ public class Diet {
 
     public double calculateTotalCalories() {
         //pengiraan kalori 
-        switch (mealType.toLowerCase()) { 
-            case "breakfast":
-                return calories * 1.2; 
-            case "lunch":
-                return calories * 1.0; 
-            case "dinner":
-                return calories * 0.8; 
-            default:
-                return calories; 
-        }
+        // switch (mealType.toLowerCase()) { 
+        //     case "breakfast":
+        //         return calories * 1.2; 
+        //     case "lunch":
+        //         return calories * 1.0; 
+        //     case "dinner":
+        //         return calories * 0.8; 
+        //     default:
+        //         return calories; 
+        // }
+
+        return calories; 
     }
-
-
-    ///nuzul punya
 
     public void logMeal() {
         System.out.println("Meal logged: " + mealType + " with " + calories + " calories.");

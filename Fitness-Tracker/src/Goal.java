@@ -66,7 +66,7 @@ public class Goal {
             return null;
         }
 
-        System.out.print("Enter target Weight: ");
+        System.out.print("Enter target Weight (KG): ");
         double targetValue = scanner.nextDouble();
 
 

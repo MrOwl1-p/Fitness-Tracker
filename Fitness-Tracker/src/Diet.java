@@ -4,12 +4,12 @@ import java.util.Scanner;
 public class Diet {
     private String mealType;
     private double calories;
-    private String[] nutritionDetails;
+    //private String[] nutritionDetails;
 
-    public Diet(String mealType, double calories, String[] nutritionDetails) {
+    public Diet(String mealType, double calories) {
         this.mealType = mealType;
         this.calories = calories;
-        this.nutritionDetails = nutritionDetails;
+        //this.nutritionDetails = nutritionDetails;
     }
 
     public String getMealType() {
@@ -54,13 +54,13 @@ public class Diet {
         this.calories = calories;
     }
 
-    public String[] getNutritionDetails() {
-        return this.nutritionDetails;
-    }
+    // public String[] getNutritionDetails() {
+    //     return this.nutritionDetails;
+    // }
 
-    public void setNutritionDetails(String[] nutritionDetails) {
-        this.nutritionDetails = nutritionDetails;
-    }
+    // public void setNutritionDetails(String[] nutritionDetails) {
+    //     this.nutritionDetails = nutritionDetails;
+    // }
 
     public double calculateTotalCalories() {
         //pengiraan kalori 

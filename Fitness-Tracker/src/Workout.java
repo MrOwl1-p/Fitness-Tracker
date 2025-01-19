@@ -1,40 +1,38 @@
 import java.util.Scanner;
 
-public class Workout {
-    private String exerciseType;
-    private double duration;
+// `Workout` extends `PhysicalActivity`, demonstrating inheritance
+//workout extends physical xtvt
+public class Workout extends PhysicalActivity {
     private double caloriesBurned;
     private double weight;
 
     // Constructor
     public Workout(String exerciseType, double duration, double weight) {
-        this.exerciseType = exerciseType;
-        this.duration = duration;
+        super(exerciseType, duration); // Call parent class constructor
         this.weight = weight;
-        calculateCaloriesBurned(); // Calculate calories burned immediately upon creation
+        this.caloriesBurned = calculateCaloriesBurned(); // Calculate calories burned immediately
     }
 
-    // Method to calculate calories burned
-    private void calculateCaloriesBurned() {
-        double mets = getMETs(exerciseType); // Retrieve METs based on exercise type
+    // Overriding abstract method to calculate calories burned
+    @Override
+    public double calculateCaloriesBurned() {
+        double mets = getMETs(getExerciseType()); // Retrieve METs from exercise type
         double intensityModifier = promptIntensity(); // Get user-selected intensity
 
         // Calories burned calculation
-        this.caloriesBurned = (mets * intensityModifier * 3.5 * this.weight) / 200 * this.duration;
+        return (mets *intensityModifier *3.5 *this.weight) / 200 *getDuration();
     }
 
-    // Method to get METs (Metabolic Equivalent of Task) for various exercises
+    // Helper method to get METs (Metabolic Equivalent of Task) for various exercises
     private double getMETs(String exerciseType) {
-
         switch (exerciseType.toLowerCase()) {
-            case "jogging":
+            case "Jogging":
                 return 8.0;
-
-            case "cycling":
+            case "Cycling":
                 return 5.0;
-            case "gym workout":
+            case "Gym workout":
                 return 7.0;
-            case "walking":
+            case "Walking":
                 return 3.5;
             default:
                 return 5.0; // Default MET value for unrecognized activities
@@ -56,38 +54,32 @@ public class Workout {
             case 1:
                 return 0.8; // Reduce METs by 20%
             case 2:
-                return 1.0; // Reduce METs by 20%
+                return 1.0; // No change
             case 3:
                 return 1.2; // Increase METs by 20%
+            default:
+                System.out.println("Invalid choice, defaulting to Moderate.");
+                return 1.0;
         }
-        return choice;
     }
 
-    // Getter methods
-    public String getExerciseType() {
-        return exerciseType;
+    // Overriding the logActivity method to provide specific details
+    @Override
+    public void logActivity() {
+        super.logActivity(); // Call the parent method (optional)
+        System.out.printf("Calories burned: %.2f\n", caloriesBurned);
     }
 
-    public double getDuration() {
-        return duration;
-    }
-
+    // Getter for calories burned
     public double getCaloriesBurned() {
         return caloriesBurned;
     }
 
-    // Method to log the workout details
-    public void logWorkout() {
-        System.out.printf("\nWorkout logged: %s for %.2f mins. Calories burned: %.2f\n", exerciseType, duration,
-                caloriesBurned);
-    }
-
-    // Overriding `toString` to represent Workout object details
     @Override
     public String toString() {
         return "Workout{" +
-                "exerciseType='" + exerciseType + '\'' +
-                ", duration=" + duration +
+                "exerciseType='" + getExerciseType() + '\'' +
+                ", duration=" + getDuration() +
                 ", caloriesBurned=" + caloriesBurned +
                 ", weight=" + weight +
                 '}';

@@ -85,33 +85,37 @@ public class App {
         }
         String exerciseType = exerciseTypes[exerciseChoice - 1];
 
+        // Tunjuk final progress
+        System.out.println("\nCongratulations! All goals are completed.");
+        for (Goal g : user.getGoal()) {
+            tracker.updateProgress(g);
+            tracker.displayProgress();
+        }
+        System.out.println("\nLog your diet:");
+        scanner.nextLine();
+        System.out.print("Enter meal type (Breakfast, Lunch, Dinner): ");
+        String mealType = scanner.nextLine();
+                           
+        System.out.print("Enter calories: ");
+        double calories = scanner.nextDouble();
+        scanner.nextLine(); 
+                           
+        System.out.print("Enter nutrition details (comma-separated): ");
+        String[] nutritionDetails = scanner.nextLine().split(",");
+                           
+        Diet diet = new Diet(mealType, calories, nutritionDetails);
+        diet.logMeal();
+                           
+        System.out.println("\nMeal Details:");
+        System.out.println("Meal Type: " + diet.getMealType());
+        System.out.println("Calories: " + diet.getCalories());
+        System.out.println("Nutrition Details: " + String.join(", ", diet.getNutritionDetails()));
+                           
+      
         // Create a Workout object
         Workout workout = new Workout(exerciseType, duration, user.getWeight());
         workout.logWorkout(); // Log the workout details
 
         scanner.close();
-
-                        //test
-    System.out.println("\nLog your diet:");
-    scanner.nextLine(); 
-    System.out.print("Enter meal type (Breakfast, Lunch, Dinner): ");
-    String mealType = scanner.nextLine();
-                       
-    System.out.print("Enter calories: ");
-    double calories = scanner.nextDouble();
-    scanner.nextLine(); 
-                       
-    System.out.print("Enter nutrition details (comma-separated): ");
-    String[] nutritionDetails = scanner.nextLine().split(",");
-                       
-    Diet diet = new Diet(mealType, calories, nutritionDetails);
-    diet.logMeal();
-                       
-    System.out.println("\nMeal Details:");
-    System.out.println("Meal Type: " + diet.getMealType());
-    System.out.println("Calories: " + diet.getCalories());
-    System.out.println("Nutrition Details: " + String.join(", ", diet.getNutritionDetails()));
-                       
-    System.out.println("\nTotal Calories (adjusted for meal type): " + diet.calculateTotalCalories());
     }
 }

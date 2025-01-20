@@ -3,6 +3,15 @@ import java.util.Scanner;
 public class App {
     public static void main(String[] args) {
 
+        // New Frame
+        // Login frame = new Login();
+        // // Set JFrame properties
+        // frame.setVisible(true);
+        // frame.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
+
+        System.out.println("Welcome to Fitness Tracker!");
+        System.out.println("Choose a user profile to get started.");
+
         // Array of predefined users (Example of Array)
         User[] users = {
                 new User("Amirul", 22, 60.0, 170),
@@ -11,6 +20,12 @@ public class App {
                 new User("Imran", 22, 80.0, 185),
                 new User("Amin", 22, 50.0, 175)
         };
+
+        // // Launch Login Frame with user array
+        // java.awt.EventQueue.invokeLater(() -> {
+        // new Login(users).setVisible(true); // Pass the `users` array here
+        // });
+
         Scanner scanner = new Scanner(System.in);
 
         // Display available users
@@ -100,16 +115,15 @@ public class App {
         double calories = scanner.nextDouble();
         scanner.nextLine();
 
-        // System.out.print("Enter nutrition details (comma-separated): ");
-        // String[] nutritionDetails = scanner.nextLine().split(",");
 
-       Diet diet = new Diet(mealType, calories);
+        Diet diet = new Diet(mealType, calories);
         diet.logMeal();
 
         System.out.println("\nMeal Details:");
         System.out.println("Meal Type: " + diet.getMealType());
         System.out.println("Calories: " + diet.getCalories());
-       // System.out.println("Nutrition Details: " + String.join(", ", diet.getNutritionDetails()));
+
+      
 
         System.out.println("\nTotal Calories (adjusted for meal type): " + diet.calculateTotalCalories());
 

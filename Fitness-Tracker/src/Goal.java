@@ -1,4 +1,4 @@
-public abstract class Goal implements Trackable {
+public abstract class Goal {
     private double targetValue;
     private double currentValue;
 
@@ -34,10 +34,5 @@ public abstract class Goal implements Trackable {
     @Override
     public String toString() {
         return "Goal Type: " + getGoalTypeName() + ", Target: " + targetValue + ", Current: " + currentValue;
-    }
-
-    @Override
-    public void trackProgress() {
-        System.out.println("Tracking progress for goal: " + toString());
     }
 }

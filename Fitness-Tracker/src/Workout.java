@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 // `Workout` extends `PhysicalActivity`, demonstrating inheritance
 //workout extends physical xtvt
-public class Workout extends PhysicalActivity implements Trackable {
+public class Workout extends PhysicalActivity {
     private double caloriesBurned;
     private double weight;
 
@@ -68,14 +68,6 @@ public class Workout extends PhysicalActivity implements Trackable {
     public void logActivity() {
         super.logActivity(); // Call the parent method (optional)
         System.out.printf("Calories burned: %.2f\n", caloriesBurned);
-    }
-  // Implementing the `trackProgress` method from `Trackable`
-    @Override
-    public void trackProgress() {
-        System.out.println("Tracking workout progress...");
-        System.out.printf("Exercise Type: %s\n", getExerciseType());
-        System.out.printf("Duration: %.2f minutes\n", getDuration());
-        System.out.printf("Calories Burned: %.2f\n", getCaloriesBurned());
     }
 
     // Getter for calories burned

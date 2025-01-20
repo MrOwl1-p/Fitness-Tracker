@@ -107,22 +107,34 @@ public class App {
         workout.logActivity(); // Log the workout details
 
         // test
+        // Diet logging using abstraction and polymorphism
         System.out.println("\nLog your diet:");
         System.out.print("Enter meal type (Breakfast, Lunch, Dinner): ");
         String mealType = scanner.nextLine();
 
         System.out.print("Enter calories: ");
         double calories = scanner.nextDouble();
-        scanner.nextLine();
 
-        Diet diet = new Diet(mealType, calories);
-        diet.logMeal();
+        Diet diet;
+        switch (mealType.toLowerCase()) {
+            case "breakfast":
+                diet = new Breakfast(calories);
+                break;
+            case "lunch":
+                diet = new Lunch(calories);
+                break;
+            case "dinner":
+                diet = new Dinner(calories);
+                break;
+            default:
+                System.out.println("Invalid meal type. Defaulting to Breakfast.");
+                diet = new Breakfast(calories);
+        }
 
-        System.out.println("\nMeal Details:");
-        System.out.println("Meal Type: " + diet.getMealType());
-        System.out.println("Calories: " + diet.getCalories());
 
-        System.out.println("\nTotal Calories (adjusted for meal type): " + diet.calculateTotalCalories());
+        diet.logDetails();
+        System.out.println("Total Calories (adjusted for meal type): " + diet.calculateAdjustedCalories());
 
+        scanner.close();
     }
 }

@@ -113,5 +113,19 @@ public class App {
 
         System.out.println("\nTotal Calories (adjusted for meal type): " + diet.calculateTotalCalories());
 
+       // Create a GoalFactory instance
+       Factory<Goal> goalFactory = new GoalFactory(1, 70.0); // Example: Weight Loss and initial weight 70.0
+
+       // Use the factory to create WeightLossGoal and MuscleGainGoal
+       Goal weightLossGoal = goalFactory.create("weightloss", 10, 5,5);
+       Goal muscleGainGoal = goalFactory.create("musclegain", 5, 2,2);
+
+       // Print the created goals
+       System.out.println(weightLossGoal);
+       weightLossGoal.trackProgress();
+
+       System.out.println(muscleGainGoal);
+       muscleGainGoal.trackProgress();
+
     }
 }

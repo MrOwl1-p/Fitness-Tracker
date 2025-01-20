@@ -1,7 +1,8 @@
 
 import java.util.Scanner;
 
-public class Diet {
+public class Diet implements Trackable {
+    private double caloriesConsumed;
     private String mealType;
     private double calories;
     //private String[] nutritionDetails;
@@ -10,6 +11,18 @@ public class Diet {
         this.mealType = mealType;
         this.calories = calories;
         //this.nutritionDetails = nutritionDetails;
+    }
+
+    public Diet(double caloriesConsumed) {
+        this.caloriesConsumed = caloriesConsumed;
+    }
+
+    public double getCaloriesConsumed() {
+        return caloriesConsumed;
+    }
+
+    public void setCaloriesConsumed(double caloriesConsumed) {
+        this.caloriesConsumed = caloriesConsumed;
     }
 
     public String getMealType() {
@@ -80,5 +93,10 @@ public class Diet {
 
     public void logMeal() {
         System.out.println("Meal logged: " + mealType + " with " + calories + " calories.");
+    }
+
+    @Override
+    public void trackProgress() {
+        System.out.println("Diet Progress: " + caloriesConsumed + " calories consumed.");
     }
 }

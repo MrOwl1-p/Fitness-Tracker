@@ -4,12 +4,10 @@ import java.util.Scanner;
 public abstract class Diet implements Loggable{
     private String mealType;
     private double calories;
-    //private String[] nutritionDetails;
 
     public Diet(String mealType, double calories) {
         this.mealType = mealType;
         this.calories = calories;
-        //this.nutritionDetails = nutritionDetails;
     }
 
     public String getMealType() {
@@ -92,6 +90,7 @@ public abstract class Diet implements Loggable{
 
     //     return calories; 
     // }
+
 
     // public void logMeal() {
     //     System.out.println("Meal logged: " + mealType + " with " + calories + " calories.");
